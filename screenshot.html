@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smoke Detection</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <style>
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">Smoke Detection</a>
+            <button class="btn btn-outline-link" id="screenshot">Screenshot</button>
+        </div>
+    </nav>
+
+    <main style="display: flex; flex-direction: row; flex-wrap: wrap; margin: 10px; width: 100%; gap: 10px">
+    </main>
+
+    <script>
+        const url = "/getScreenshot";
+        const cards = document.querySelector("main");
+
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                data['screenshots'].forEach(item => {
+                    const card = document.createElement("div");
+                    card.classList.add("card");
+                    card.style.width = "18rem";
+                    item = item.replace("tmp", "static");
+                    let status = item.split("---")[1].split(".")[0];
+                    card.innerHTML = `
+                        <div class="card" style="width: 18rem; cursor: pointer;">
+                            <div class="card-body">
+                                <img src="${item}" 
+                                    style="width: calc(18rem - 30px); height: 18rem"/>
+                                <h6 class="card-subtitle mb-2 text-muted">${status}</h6>
+                            </div>
+                        </div>`;
+                    cards.appendChild(card);
+                });
+            });
+
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
