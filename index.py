@@ -12,7 +12,7 @@ from twilio.rest import Client
 import datetime
 
 # Your Twilio Account SID and Auth Token
-account_sid = 'ACd7b22be1474d778dcc6e4bea6c29fe60'
+account_sid = ''
 auth_token = 'd3508efa7e3f0c6aaf912a565eeb14ee'
 
 app = Flask(__name__, static_url_path='/static', static_folder='tmp')
